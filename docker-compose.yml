@@ -1,0 +1,47 @@
+version: "3"
+
+networks:
+  main:
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+    container_name: playmo_api_nginx
+    ports:
+      - "8100:8100"
+    volumes:
+      - ../api:/var/www/api
+    depends_on:
+      - php
+      - mysql
+    networks:
+      - main
+
+  mysql:
+    image: mysql:5.7.28
+    container_name: playmo_api_mysql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./volumes/mysql:/var/lib/mysql
+      - ./volumes/database-seed.sql:/docker-entrypoint-initdb.d/database-seed.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: playmo_db_dev
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    networks:
+      - main
+
+  php:
+    build:
+      context: .
+    container_name: playmo_api_php
+    ports:
+      - "9000:9000"
+    volumes:
+      - ../api:/var/www/api
+    networks:
+      - main
