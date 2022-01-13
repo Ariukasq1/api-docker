@@ -11,7 +11,7 @@ services:
     ports:
       - "8100:8100"
     volumes:
-      - ./api:/var/www/api
+      - ./repo/api:/var/www/api
     depends_on:
       - php
       - mysql
