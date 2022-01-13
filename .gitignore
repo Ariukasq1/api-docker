@@ -1,4 +1,5 @@
 volumes/mysql/*
 !volumes/mysql/.gitkeep
+volumes/database/*
 
-volumes/database-seed.sql
+api/*
