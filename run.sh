@@ -1,4 +1,4 @@
-PROJECT_NAME="playmo_api"
+PROJECT_NAME="playmo-api"
 
 DOCKER_COMMAND=()
 for arg in "$@"

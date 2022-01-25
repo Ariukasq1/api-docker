@@ -2,12 +2,14 @@ version: "3"
 
 networks:
   main:
+    external: true
+    name: playmo
 
 services:
   nginx:
     build:
       context: ./nginx
-    container_name: playmo_api_nginx
+    container_name: playmo-api-nginx
     ports:
       - "8100:8100"
     volumes:
@@ -22,7 +24,7 @@ services:
     platform: linux/x86_64
     image: mariadb
     # image: mysql:5.7.28
-    container_name: playmo_api_mysql
+    container_name: playmo-api-mysql
     restart: unless-stopped
     tty: true
     ports:
@@ -43,7 +45,7 @@ services:
         user: playmo
         uid: 1000
       context: .
-    container_name: playmo_api_php
+    container_name: playmo-api-php
     ports:
       - "9000:9000"
     restart: unless-stopped
