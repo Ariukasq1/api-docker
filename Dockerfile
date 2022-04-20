@@ -6,12 +6,13 @@ ARG uid
 
 RUN apt-get clean
 
-RUN apt-get update && apt-get install -y git curl zip unzip nano libfreetype6-dev libjpeg62-turbo-dev libpng-dev
+RUN apt-get update && apt-get install -y git curl zip unzip nano libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
+&& docker-php-ext-configure gd --with-freetype --with-jpeg \
+&& docker-php-ext-install -j$(nproc) gd
 
-RUN docker-php-ext-install gd pdo pdo_mysql mbstring exif pcntl bcmath
-
+RUN docker-php-ext-install pdo pdo_mysql exif pcntl bcmath
 # RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+# RUN docker-php-ext-configure gd --with-freetype --with-jpeg && docker-php-ext-install gd
 
 RUN apt-get update && apt-get install -y cron
 
