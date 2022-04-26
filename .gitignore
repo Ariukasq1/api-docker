@@ -12,5 +12,5 @@ posapi/poslib/*
 posapi/vatps/*
 !posapi/vatps/.gitkeep
 
-volumes/keys/*
-!volumes/keys/.gitkeep
+volumes/ssl/*
+!volumes/ssl/.gitkeep
