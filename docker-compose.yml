@@ -7,13 +7,10 @@ networks:
 
 services:
   nginx:
-    build:
-      context: ./nginx
     container_name: playmo-api-nginx
-    ports:
-      - "8100:8100"
+    image: nginx:stable-alpine
     volumes:
-      - ./repo/api:/var/www/api
+      - ./php/api:/var/www/api
     depends_on:
       - php
       - mysql
@@ -23,34 +20,39 @@ services:
   mysql:
     platform: linux/x86_64
     image: mariadb
-    # image: mysql:5.7.28
     container_name: playmo-api-mysql
     restart: unless-stopped
     tty: true
     ports:
       - "3306:3306"
     volumes:
-      - ./volumes/mysql:/var/lib/mysql
-      - ./volumes/database:/docker-entrypoint-initdb.d
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: playmo_db_dev
+      - ./mysql/lib:/var/lib/mysql
+      - ./mysql/initdb:/docker-entrypoint-initdb.d
     command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
     networks:
       - main
 
   php:
+    container_name: playmo-api-php
     build:
+      context: ./php
       args:
         user: playmo
         uid: 1000
-      context: .
-    container_name: playmo-api-php
     ports:
       - "9000:9000"
     restart: unless-stopped
     volumes:
-      - ./repo/api:/var/www/api
+      - ./php/api:/var/www/api
     networks:
       - main
     working_dir: /var/www/api
+
+  pos:
+    container_name: playmo-api-pos
+    image: registry.gitlab.com/endigo/ebarimt
+    volumes:
+      - ./posapi/vatps:/root/.vatps
+      - ./posapi/poslib:/poslib
+    networks:
+      - main

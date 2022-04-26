@@ -1,6 +1,16 @@
-volumes/mysql/*
-!volumes/mysql/.gitkeep
-volumes/database/*
+docker-compose.env.yml
 
-!repo/.gitkeep
-repo/*
+mysql/initdb/*
+!mysql/initdb/.gitkeep
+mysql/lib/*
+!mysql/lib/.gitkeep
+
+php/api/
+
+posapi/poslib/*
+!posapi/poslib/.gitkeep
+posapi/vatps/*
+!posapi/vatps/.gitkeep
+
+volumes/keys/*
+!volumes/keys/.gitkeep

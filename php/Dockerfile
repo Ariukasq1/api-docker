@@ -27,7 +27,6 @@ RUN apt-get install --yes --force-yes libmagickwand-dev libmagickcore-dev
 RUN yes '' | pecl install -f imagick
 RUN docker-php-ext-enable imagick
 
-
 # Add crontab file in the cron directory
 ADD crontab /etc/cron.d/cron
 # Give execution rights on the cron job
