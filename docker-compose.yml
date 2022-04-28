@@ -23,8 +23,6 @@ services:
     container_name: playmo-api-mysql
     restart: unless-stopped
     tty: true
-    ports:
-      - "3306:3306"
     volumes:
       - ./mysql/lib:/var/lib/mysql
       - ./mysql/initdb:/docker-entrypoint-initdb.d
@@ -47,12 +45,3 @@ services:
     networks:
       - main
     working_dir: /var/www/api
-
-  pos:
-    container_name: playmo-api-pos
-    image: registry.gitlab.com/endigo/ebarimt
-    volumes:
-      - ./posapi/vatps:/root/.vatps
-      - ./posapi/poslib:/poslib
-    networks:
-      - main
