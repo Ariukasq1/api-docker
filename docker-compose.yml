@@ -42,6 +42,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./php/api:/var/www/api
+      - ./php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     networks:
       - main
     working_dir: /var/www/api
