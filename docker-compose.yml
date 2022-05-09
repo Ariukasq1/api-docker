@@ -37,8 +37,8 @@ services:
       args:
         user: playmo
         uid: 1000
-    ports:
-      - "9000:9000"
+#    ports:
+#      - "9000:9000"
     restart: unless-stopped
     volumes:
       - ./php/api:/var/www/api
