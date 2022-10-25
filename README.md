@@ -3,6 +3,11 @@
 clone api project into api
 `cd api && git clone git@api .`
 
+sudo chown -R $USER:www-data storage
+sudo chown -R $USER:www-data bootstrap/cache
+chmod -R 775 storage
+chmod -R 755 bootstrap/cache
+
 run.sh build
 run.sh up
 run.sh exec php composer install
