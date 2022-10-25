@@ -13,20 +13,6 @@ services:
       - ./php/api:/var/www/api
     depends_on:
       - php
-      - mysql
-    networks:
-      - main
-
-  mysql:
-    platform: linux/x86_64
-    image: mariadb
-    container_name: playmo-api-mysql
-    restart: unless-stopped
-    tty: true
-    volumes:
-      - ./mysql/lib:/var/lib/mysql
-      - ./mysql/initdb:/docker-entrypoint-initdb.d
-    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
     networks:
       - main
 
@@ -37,8 +23,6 @@ services:
       args:
         user: playmo
         uid: 1000
-#    ports:
-#      - "9000:9000"
     restart: unless-stopped
     volumes:
       - ./php/api:/var/www/api
