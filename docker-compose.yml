@@ -30,3 +30,18 @@ services:
     networks:
       - main
     working_dir: /var/www/api
+
+  nodejs:
+    container_name: playmo-api-node
+    image: 'playmo-api-node:latest'
+    ports:
+      - "3000:3000"
+    build:
+      context: ./nest
+    restart: unless-stopped
+    volumes:
+      - ./nest:/var/www/nest
+      - /var/www/nest/node_modules
+    networks:
+      - main
+

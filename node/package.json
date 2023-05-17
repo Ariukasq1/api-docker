@@ -1,0 +1,15 @@
+{
+  "name": "playmo-api-nodejs",
+  "version": "1.0.0",
+  "description": "Node.js on Docker",
+  "author": "Ariuka ariuka.playmo@gmail.com",
+  "main": "index.js",
+  "scripts": {
+    "start": " nodemon index.js",
+    "type": " module"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22"
+  }
+}
