@@ -1,41 +1,10 @@
-version: "3.9"
-
-networks:
-  main:
-    external: true
-    name: playmo
-
+version: '3.9'
 services:
-  nginx:
-    container_name: playmo-api-nginx
-    image: nginx:stable-alpine
-    volumes:
-      - ./php/api:/var/www/api
-    depends_on:
-      - php
-    networks:
-      - main
-
-  php:
-    container_name: playmo-api-php
-    build:
-      context: ./php
-      args:
-        user: playmo
-        uid: 1000
-    restart: unless-stopped
-    volumes:
-      - ./php/api:/var/www/api
-      - ./php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
-    networks:
-      - main
-    working_dir: /var/www/api
-
   nodejs:
     container_name: playmo-api-node
     image: 'playmo-api-node:latest'
     ports:
-      - "3000:3000"
+      - '8080:3000'
     build:
       context: ./nest
     restart: unless-stopped
@@ -44,4 +13,9 @@ services:
       - /var/www/nest/node_modules
     networks:
       - main
+
+networks:
+  main:
+    external: true
+    name: playmo
 
